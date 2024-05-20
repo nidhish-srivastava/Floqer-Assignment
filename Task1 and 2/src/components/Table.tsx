@@ -66,12 +66,6 @@ const Table: React.FC = () => {
     return 0;
   });
 
-  const getSortIcon = (column: keyof AggregatedData) => {
-    if (sortColumn === column) {
-      return sortDirection === "asc" ? "▲" : "▼";
-    }
-    return "▲▼";
-  };
 
   const handleRowClick = (year: number) => {
     setSelectedYear(year);
@@ -101,15 +95,24 @@ const Table: React.FC = () => {
     <>
       <table>
         <thead>
-          <tr>
-            <th onClick={() => handleSort("year")}>
-              Year {getSortIcon("year")}
+        <tr>
+            <th onClick={() => handleSort('year')} className={sortColumn === 'year' ? `sorted-${sortDirection}` : ''}>
+              Year
+              <div className="tooltip">
+                Click to sort {sortDirection === 'asc' ? 'descending' : 'ascending'}
+              </div>
             </th>
-            <th onClick={() => handleSort("totalJobs")}>
-              Number of Total Jobs {getSortIcon("totalJobs")}
+            <th onClick={() => handleSort('totalJobs')} className={sortColumn === 'totalJobs' ? `sorted-${sortDirection}` : ''}>
+              Number of Total Jobs
+              <div className="tooltip">
+                Click to sort {sortDirection === 'asc' ? 'descending' : 'ascending'}
+              </div>
             </th>
-            <th onClick={() => handleSort("averageSalary")}>
-              Average Salary in USD {getSortIcon("averageSalary")}
+            <th onClick={() => handleSort('averageSalary')} className={sortColumn === 'averageSalary' ? `sorted-${sortDirection}` : ''}>
+              Average Salary in USD
+              <div className="tooltip">
+                Click to sort {sortDirection === 'asc' ? 'descending' : 'ascending'}
+              </div>
             </th>
           </tr>
         </thead>
