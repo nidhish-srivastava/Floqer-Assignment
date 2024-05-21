@@ -84,10 +84,11 @@
 
 # if __name__ == "__main__":
 #     main()
+
 import streamlit as st
 import pandas as pd
 from langchain.prompts import PromptTemplate
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from dotenv import load_dotenv
 import openai
@@ -97,7 +98,7 @@ import os
 load_dotenv()
 
 
-openai.api_key = os.getenv("sk-proj-uM3bGut32FNAnH2WILwOT3BlbkFJAP1KgOc03WMm6BuEX2H3")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def chat_interface():
@@ -109,7 +110,7 @@ def chat_interface():
         st.text_area("Response", value=response, height=200)
 
 
-@st.cache
+@st.cache_data
 def load_salary_data():
     return pd.read_csv("salaries.csv")
 
@@ -149,15 +150,15 @@ def generate_response(query):
 def extract_relevant_data(query):
     # Implement a basic extraction logic based on keywords in the query
     if "2022" in query:
-        return data[data['Year'] == 2022]
+        return data[data['work_year'] == 2022]
     elif "2023" in query:
-        return data[data['Year'] == 2023]
+        return data[data['work_year'] == 2023]
     elif "2020" in query:
-        return data[data['Year'] == 2020]
+        return data[data['work_year'] == 2020]
     elif "2021" in query:
-        return data[data['Year'] == 2021]
+        return data[data['work_year'] == 2021]
     elif "2024" in query:
-        return data[data['Year'] == 2024]
+        return data[data['work_year'] == 2024]
     else:
         
         return data
